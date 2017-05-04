@@ -21,6 +21,6 @@ for i, item in enumerate(items):
     url = str(item.xpath("@href")[0])
     name = url.split('/')[-1]
     try:
-        urllib.request.urlretrieve(url, name)
+        urllib.request.urlretrieve(url, "/var/www/html/schoolScraper/3136/"+name)
     except urllib.error.URLError:
         pass
