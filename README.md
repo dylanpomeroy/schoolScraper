@@ -10,7 +10,7 @@ Overall Execution Process
 - These scraping procedures are run at intervals and so modifications to the 
     files either on this server or where they are being scraped from will be
     carried over into the web-accessible files, thus keeping them up to date
-
+git 
 Python Scraping
 - each course's file scraping associated with exactly one python script
 - python scripts loop indefinitely as to scrape consistently at given intervals

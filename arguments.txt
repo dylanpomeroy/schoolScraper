@@ -1,0 +1,19 @@
+# outputs to stdout in addition to a log file
+verbose : 1
+
+# the url of the tami meredith website address housing the links to files
+urlToScrape : http://www.tamimeredith.ca/academic/csci-3136/
+
+# time to wait for web request before giving up in seconds
+# if too many requests are made at once, the site will block requests.
+# this should be set to determine how long to wait before making the assumption this has occurred
+requestTimeout : 5
+
+# the local path to store the downloaded files 
+pathToStoreFiles : /Users/dylanpomeroy/Developer/schoolScraper/files/
+
+# the default time to sleep between scraping operations in seconds
+sleepTimeBetweenScraping : 10
+
+# convert pptx (powerpoint) files to pdf
+convertPPTXToPDF : 1
