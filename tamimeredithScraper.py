@@ -6,6 +6,7 @@ import socket
 import shutil
 import os
 from subprocess import call
+import platform
 
 # these are overridden before every batch scrape process with values in arguments.txt
 verbose = 0
@@ -14,6 +15,8 @@ requestTimeout = 0 #seconds
 pathToStoreFiles = ""
 sleepTimeBetweenScraping = 0 #seconds
 convertPPTXToPDF = 0
+PPTXToPDFUnixCmd = ""
+PPTXToPDFWindowsCmd = ""
 
 # used to specify location of arguments
 argumentsFile = "arguments.txt"
@@ -33,19 +36,27 @@ def getArguments():
         arguments[item.split(' : ')[0].strip()] = item.split(' : ')[1].strip() 
     
     # assign arguments to variables
-    global verbose, urlToScrape, requestTimeout, pathToStoreFiles, sleepTimeBetweenScraping, convertPPTXToPDF
+    global verbose, urlToScrape, requestTimeout, pathToStoreFiles, sleepTimeBetweenScraping, convertPPTXToPDF, PPTXToPDFUnixCmd, PPTXToPDFWindowsCmd
     verbose = int(arguments["verbose"])
     urlToScrape = arguments["urlToScrape"]
     requestTimeout = int(arguments["requestTimeout"])
     pathToStoreFiles = arguments["pathToStoreFiles"]
     sleepTimeBetweenScraping = int(arguments["sleepTimeBetweenScraping"])
     convertPPTXToPDF = int(arguments["convertPPTXToPDF"])
+    PPTXToPDFUnixCmd = arguments["PPTXToPDFUnixCmd"]
+    PPTXToPDFWindowsCmd = arguments["PPTXToPDFWindowsCmd"]
 
 def waitUntilNextScrape():
     time.sleep(sleepTimeBetweenScraping)
 
 def convertPowerPointFiles():
-    os.system("unoconv -f pdf files/*.pptx")
+    # call system independant command
+    if platform.system() == "Linux" or platform.system() == "Darwin":
+        os.system(PPTXToPDFUnixCmd)
+    elif platform.system() == 'Windows':
+        os.system(PPTXToPDFWindowsCmd)
+
+    # remove converted pptx files
     for root, dirs, files in os.walk("files"):
         for f in files:
             if f.lower().endswith(".pptx"):

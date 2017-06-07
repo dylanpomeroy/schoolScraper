@@ -10,10 +10,17 @@ urlToScrape : http://www.tamimeredith.ca/academic/csci-3136/
 requestTimeout : 5
 
 # the local path to store the downloaded files 
-pathToStoreFiles : /Users/dylanpomeroy/Developer/schoolScraper/files/
+pathToStoreFiles : files/
 
 # the default time to sleep between scraping operations in seconds
 sleepTimeBetweenScraping : 10
 
 # convert pptx (powerpoint) files to pdf
 convertPPTXToPDF : 1
+
+# command used to convert all pptx files to pdf for UNIX machines (Mac + Unix)
+PPTXToPDFUnixCmd : unoconv -f pdf files/*.pptx
+
+# command used to convert all pptx files to pdf for Windows machines
+PPTXToPDFWindowsCmd : bash -c "unoconv -f pdf files/*.pptx"
+
